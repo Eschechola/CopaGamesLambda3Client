@@ -1,19 +1,15 @@
-import { Component } from "react";
+import { Component, MouseEventHandler } from "react";
 import Loading from "../../components/loading/loading";
 import './games.css';
 import { getGamesAsync } from "../../services/game.service";
 import IGame from "../../interfaces/IGame";
 
 class Games extends Component{
-    constructor(props: any){
-        super(props);
-    }
-
     state = {
         isLoading: true,
-        selectedGames: 0,
-        games: {} as IGame[],
-        gamesComponent: <></>
+        games: [] as IGame[],
+        gamesComponent: <></>,
+        selectedGames: [] as IGame[]
     }
 
     componentDidMount(){
@@ -87,14 +83,14 @@ class Games extends Component{
         var gamesFromYear: IGame[] = [];
 
         this.state.games.forEach((game) => {
-            if(game.year == year)
+            if(game.year === year)
                 gamesFromYear.push(game);
         });
 
         return gamesFromYear;
     }
 
-    mountGamesRows = (games: IGame[]): JSX.Element[] => {
+    mountGamesRows = (games: IGame[]) => {
         var rows: JSX.Element[] = [];
         var rowCount: Number = games.length / 3;
 
@@ -118,13 +114,45 @@ class Games extends Component{
 
     mountGameCard = (game: IGame) => {
         return (
-            <div className="games-container-content-row-item">
+            <div className="games-container-content-row-item" onClick={(event) => this.selectGame(event, game)}>
                 <h6>{game.title}</h6>
                 <p>{game.rating}</p>
                 <img src={game.urlImage as string} alt={game.id as string}/>
             </div>
         );
     }
+
+    selectGame = (event: any, game: IGame): any => {
+        var newGamesArray = this.state.selectedGames;
+        
+        if(newGamesArray.includes(game))
+        {
+            newGamesArray = newGamesArray.filter(x => x !== game);
+            this.unselectGameBox(event.target);
+        }
+        else
+        {
+            if(!this.selectedGamesIsValid(newGamesArray))
+                return;
+
+            newGamesArray.push(game);
+            this.selectGameBox(event.target);
+        }
+            
+        this.setState({selectedGames: newGamesArray});
+    }
+
+    selectedGamesIsValid = (games: IGame[]): boolean => {
+        if(games.length < 8)
+            return true
+        
+        alert('Você ja tem 8 jogos selecionados para a competição');
+        return false;
+    }
+
+    selectGameBox = (target: any) => target.style.background = "#417d3c";
+
+    unselectGameBox = (target: any) => target.style.background = "var(--card-background)";
 
     render() {
         return (
@@ -141,7 +169,7 @@ class Games extends Component{
 
                     <div className="games-info">
                         <div className="games-info-text">
-                            <p><strong>Selecionados:</strong> {this.state.selectedGames} games</p>
+                            <p><strong>Selecionados:</strong> {this.state.selectedGames.length} games</p>
                         </div>
                         <div className="games-info-actions">
                             <button>

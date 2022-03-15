@@ -95,7 +95,7 @@
     display: flex;
     align-items: center;
     align-content: center;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .games-info-actions button{
@@ -163,6 +163,7 @@
     align-content: center;
     margin-top: 15px;
     margin-bottom: 15px;
+    overflow-y: hidden;
 }
 
 .games-container-content-row-item{
@@ -173,7 +174,8 @@
     cursor: pointer;
     background: var(--card-background);
     overflow-y: hidden;
-    border-radius: 5px
+    border-radius: 5px;
+    transition: .5s;
 }
 
 .games-container-content-row-item h6{
