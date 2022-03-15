@@ -1,0 +1,27 @@
+.loading-container{
+    width: 100%;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+  }
+  
+  .loading-item{
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    border: 4px solid var(--loading-color);
+    border-right: 4px solid var(--loading-dark-color);
+    animation: LoadingAnimation .7s infinite;
+    animation-timing-function: linear;
+  }
+  
+  @keyframes LoadingAnimation {
+    0%{
+      transform: rotate(0deg);
+    }
+    100%{
+      transform: rotate(360deg);
+    }
+  }

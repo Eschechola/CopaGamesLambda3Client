@@ -1,12 +1,17 @@
-import { Routes, Route } from 'react-router-dom';
+import { ReactElement } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Games from '../pages/games/games';
+import MatchesResult from '../pages/matches-result/matches-result';
 
-const routes = () => {
-    return(
-        <Routes>
-            <Route path="/" />
-            <Route path="/games" />
-            <Route path="/matches-result" />
-        </Routes>
+const routes = (): ReactElement => {
+        return(
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Games/>} />
+                <Route path="/games" element={<Games/>}/>
+                <Route path="/matches-result" element={<MatchesResult/>}/>
+            </Routes>
+        </BrowserRouter>
     );
 }
 
