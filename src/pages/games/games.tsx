@@ -1,8 +1,11 @@
-import { Component, MouseEventHandler } from "react";
+import { Component } from "react";
 import Loading from "../../components/loading/loading";
 import './games.css';
 import { getGamesAsync } from "../../services/game.service";
 import IGame from "../../interfaces/IGame";
+import { useNavigate } from "react-router-dom";
+
+const navigate = useNavigate();
 
 class Games extends Component{
     state = {
@@ -27,7 +30,12 @@ class Games extends Component{
         }
     }
 
+    enableLoading = () => this.setState({isLoading: true});
+
+    disableLoading = () => this.setState({isLoading: false});
+
     mountGamesComponent = async () => {
+        this.enableLoading();
         await this.getGamesAsync();
         
         var yearList: Number[] = this.getOrderedYearList();
@@ -43,6 +51,7 @@ class Games extends Component{
 
         const gamesContainer = this.mountGamesContainer(gameList); 
         this.setState({gamesComponent: gamesContainer});
+        this.disableLoading();
     }
 
     getOrderedYearList = (): Number[] => {
@@ -150,9 +159,19 @@ class Games extends Component{
         return false;
     }
 
-    selectGameBox = (target: any) => target.style.background = "#417d3c";
+    selectGameBox = (target: any) => target.style.background = "var(--card-selected)";
 
     unselectGameBox = (target: any) => target.style.background = "var(--card-background)";
+
+    startMatches = () => {
+        if(this.state.selectedGames.length !== 8){
+            alert("Você precisa selecionar ao menos 8 jogos para iniciar as partidas");
+            return;
+        }
+
+        localStorage.setItem("games", JSON.stringify({ games: this.state.selectedGames }));
+        window.location.href = "/matches-result";
+    }
 
     render() {
         return (
@@ -172,7 +191,8 @@ class Games extends Component{
                             <p><strong>Selecionados:</strong> {this.state.selectedGames.length} games</p>
                         </div>
                         <div className="games-info-actions">
-                            <button>
+                            <button
+                                onClick={this.startMatches}>
                                 Gerar Campeonato
                             </button>
                         </div>
@@ -180,7 +200,7 @@ class Games extends Component{
 
                     <div className="game-list">
                         {
-                            !this.state.isLoading
+                            this.state.isLoading
                             ? <Loading />
                             : this.state.gamesComponent
                         }

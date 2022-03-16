@@ -59,7 +59,7 @@
 
 .header p{
     margin-top: 70px;
-    width: 35%;
+    width: 40%;
     margin-left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -184,6 +184,9 @@
     font-size: 1rem;
     text-align: center;
     margin-top: 20px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
 }
 
 .games-container-content-row-item p{
@@ -192,6 +195,9 @@
     text-align: center;
     font-size: 1.5rem;
     margin-top: 10px;
+    width: 50px;
+    margin-left: 50%;
+    transform: translateX(-50%);
 }
 
 .games-container-content-row-item img{
