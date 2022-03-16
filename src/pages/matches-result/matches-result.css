@@ -1,0 +1,86 @@
+.matches-result-section{
+    width: 100vw;
+    height: 100vh;
+    background: var(--background);
+}
+
+.matches-result-content{
+    width: 50vw;
+    height: auto;
+    position: relative;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+.matches-result-rows{
+    width: 100%;
+    height: 330px;
+    margin-top: 50px;
+}
+
+.matches-result-row{
+    width: 100%;
+    height: 150px;
+    margin-top: 10px;
+    overflow-y: hidden;
+    background: var(--dark-red);
+    border-radius: 5px;
+}
+
+.matches-result-row-position{
+    float: left;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.matches-result-row-position h1{
+    color: var(--card-font-color);
+    font-size: 3rem;
+}
+
+.matches-result-row-title{
+    float: left;
+    width: 80%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.matches-result-row-title p{
+    color: var(--card-font-color);
+    font-size: 1.8rem;
+}
+
+.matches-result-back-button{
+    width: 30%;
+    height: 30px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.matches-result-back-button a{
+    text-align: center;
+    color: var(--card-font-color);
+    text-decoration: none;
+    width: 100%;
+    font-size: 1.2rem;
+    opacity: .7;
+    transition: .5s;
+}
+
+.matches-result-back-button a:hover{
+    transition: .5s;
+    opacity: 1;
+    text-decoration: underline;
+}

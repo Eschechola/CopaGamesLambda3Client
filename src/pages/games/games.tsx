@@ -1,15 +1,17 @@
 import { Component } from "react";
-import Loading from "../../components/loading/loading";
-import './games.css';
-import { getGamesAsync } from "../../services/game.service";
-import IGame from "../../interfaces/IGame";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-const navigate = useNavigate();
+import Loading from "../../components/loading/loading";
+import IGame from "../../interfaces/IGame";
+
+import { getGamesAsync } from "../../services/game.service";
+
+import './games.css';
 
 class Games extends Component{
     state = {
         isLoading: true,
+        startMatches: false,
         games: [] as IGame[],
         gamesComponent: <></>,
         selectedGames: [] as IGame[]
@@ -38,8 +40,8 @@ class Games extends Component{
         this.enableLoading();
         await this.getGamesAsync();
         
-        var yearList: Number[] = this.getOrderedYearList();
-        var gameList = [];
+      
+        var gameList = [];  var yearList: Number[] = this.getOrderedYearList();
 
         for(var i = 0; i < yearList.length; i++){
             const gamesFromYear = this.getGamesFromYear(yearList[i]);
@@ -170,15 +172,18 @@ class Games extends Component{
         }
 
         localStorage.setItem("games", JSON.stringify({ games: this.state.selectedGames }));
-        window.location.href = "/matches-result";
+        this.setState({startMatches: true});
     }
 
     render() {
+        if(this.state.startMatches)
+            return <Navigate replace to="/matches-result" />
+
         return (
             <section className="games-section">
                 <div className="games-content">
                     <header className="header">
-                        <h6>Challenge Games</h6>
+                        <h6>CAMPEONATO DE GAMES</h6>
                         <h1>Fase de Seleção</h1>
                         <hr />
 
